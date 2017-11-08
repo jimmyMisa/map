@@ -1,5 +1,8 @@
 
 function mark(data,map,i,datas){
+	if(globs.info===undefined){
+		globs.info=false;
+	}
 	var icons=globs.icons;
 	var icon=getIcon(data.categorie);
 	var position=new google.maps.LatLng(data.latitude,data.longitude);
@@ -25,24 +28,30 @@ function mark(data,map,i,datas){
 		  });
   
   	globs.markers.push(marker);
-		  marker.addListener('mouseover', function() {
-				infowindow.open(map, marker);
+		  marker.addListener('click', function() {
+		  		setTimeout(function(){
+			  		globs.info=true;
+					infowindow.open(map, marker);
+		  		},500);
 				
 				
 			});
-		  marker.addListener('mouseover', function() {
-		  		if(window.free){
-					completeInformation(data,false,0,clsm);
-					for(var j=0;j<datas.length;j++){
-						if(
-							i!=j &&
-							sameAs(datas[j].latitude,data.latitude) &&
-							sameAs(datas[j].longitude,data.longitude)
-						){
-							completeInformation(datas[j],true,j+1,clsm);
+		  marker.addListener('click', function() {
+		  		setTimeout(function(){
+			  		globs.info=true;
+			  		if(window.free){
+						completeInformation(data,false,0,clsm);
+						for(var j=0;j<datas.length;j++){
+							if(
+								i!=j &&
+								sameAs(datas[j].latitude,data.latitude) &&
+								sameAs(datas[j].longitude,data.longitude)
+							){
+								completeInformation(datas[j],true,j+1,clsm);
+							}
 						}
-					}
-		  		}
+			  		}
+			  	},500);
 				
 			});
 			function clsm(){

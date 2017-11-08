@@ -35,6 +35,9 @@ function events(){
 	window.free=true;
 	
 	window.addEventListener("click",function(){
-		cleanInformation();
+		if(globs.info){
+			cleanInformation();
+			globs.info=false;
+		}
 	});
 }
