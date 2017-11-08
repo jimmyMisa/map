@@ -1,53 +1,34 @@
-<div id="infox">Map should displayied there</div>
-<div id="map_canvas"></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Geo Location</title>
+<style type="text/css">
+html { height: 100% }
+body { height: 100%; margin: 0; padding: 0 }
+#map-canvas { height: 100% }
+</style>
+<script type="text/javascript" src="cordova.js"></script>
+<script src="http://maps.google.com/maps/api/js?key=AIzaSyCVSnOiY_GawHhgXZAufDXiYxnIqgtSdTQ" type="text/javascript"></script>
 <script type="text/javascript">
-var map;
-document.addEventListener("deviceready", function() {
-  var div = document.getElementById("map_canvas");
+test();
+function test() {
+var myLatlng =new google.maps.LatLng(-18.908431, 47.535145)
 
-  // Initialize the map view
-  map = plugin.google.maps.Map.getMap(div);
 
-  // Wait until the map is ready status.
-  map.addEventListener(plugin.google.maps.event.MAP_READY, onMapReady);
-}, false);
-
-function onMapReady() {
-  var button = document.getElementById("button");
-  button.addEventListener("click", onButtonClick);
+var mapOptions = {zoom: 4,center: myLatlng}
+var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+var marker = new google.maps.Marker({position: myLatlng,map: map});
 }
-
-function onButtonClick() {
-
-  // Move to the position with animation
-  map.animateCamera({
-    target: {lat: 37.422359, lng: -122.084344},
-    zoom: 17,
-    tilt: 60,
-    bearing: 140,
-    duration: 5000
-  }, function() {
-
-    // Add a maker
-    map.addMarker({
-      position: {lat: 37.422359, lng: -122.084344},
-      title: "Welecome to \n" +
-             "Cordova GoogleMaps plugin for iOS and Android",
-      snippet: "This plugin is awesome!",
-      animation: plugin.google.maps.Animation.BOUNCE
-    }, function(marker) {
-
-      // Show the info window
-      marker.showInfoWindow();
-
-      // Catch the click event
-      marker.on(plugin.google.maps.event.INFO_CLICK, function() {
-
-        // To do something...
-        alert("Hello world!");
-
-      });
-    });
-  });
+function onError(error) {
+alert('code: ' + error.code + '\n' +
+'message: ' + error.message + '\n');
 }
+google.maps.event.addDomListener(window, 'load', onSuccess);
+
 </script>
+</head>
+<body>
+<div id="map-canvas"></div>
+</body>
+</html>
