@@ -1,210 +1,51 @@
-<html>
-<head>
-<meta charset="UTF-8"></meta>
-<!-- script -->
+<script type="text/javascript">
+var map;
+document.addEventListener("deviceready", function() {
+  var div = document.getElementById("map_canvas");
 
-    <script type="text/javascript">
-      var BASE_URL = "";
-    </script>
-    <!-- jQuery 2.1.4 -->
-    <script src="assets/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+  // Initialize the map view
+  map = plugin.google.maps.Map.getMap(div);
 
-<style>
-    body{
-        width: 100%;
-        height: 100%;
-        padding: 0;
-        margin: 0;
-    }
-    .menu{
-        display:inline-block;
-        width:200px;
-        height:50px;
-        background-color:#777;
-        padding:5px;
-        word-wrap:break-word;
-        vertical-align:middle;
-        box-sizing:border-box;
-        position:relative;
-        text-align:center;
-        color:#FFF;
-        text-decoration:none;
-        font-size:16px;
-        border:1px solid #DDD;
-    }
-    .menu *,.menu{
-        color:#FFF;
-        text-decoration:none;
-        font-size:16px;
-    }
-    .label{
-        display:inline-block;
-        width:250px;
-        height:50px;
-        background-color:#DDD;
-        margin:2px;
-        padding:5px;
-        word-wrap:break-word;
-        vertical-align:middle;
-        box-sizing:border-box;
-        position:relative;
-        text-align:center;
-    }
-    .input{
-        display:inline-block;
-        width:300px;
-        height:50px;
-        border:1px solid #DDD;
-        margin:2px;
-        padding:5px;
-        word-wrap:break-word;
-        vertical-align:middle;
-        box-sizing:border-box;
-    }
-    .input:focus{
-        background-color:#EEE;
-    }
-    .labelstack{
-        display: inline-block;
-        height: 100%;
-        vertical-align: middle;
-        width:0;
-    }
-    .labelcontent{
-        display: inline-block;
-        vertical-align: middle;
-        width: 99%;
-    }
-    .iframe{
-        width:100%;
-        height:90%;
-        display:block;
-        border: none;
-        position: relative;
-        overflow: hidden;
-    }
-    .menus{
-        position: fixed;
-        top:0px;
-        left:0px;
-        display:none;
-        z-index: 2000;
-    }
-    .menus.display{
-        display:block;
-    }
-    
-    #play_menu{
-        display: inline-block;
-        width: 30px;
-        height: 30px;
-        background-color: #333;
-        position: fixed;
-        bottom:0;
-        left:0px;
-        z-index: 10;
-        cursor:pointer;
-    }
-    #play_menu::before{
-        content:" ";
-        display: inline-block;
-        width: 18px;
-        height: 3px;
-        background-color: #FFF;
-        position: fixed;
-        bottom:10px;
-        left:6px;
-        z-index: 10;
-    }
-    #play_menu::after{
-        content:" ";
-        display: inline-block;
-        width: 18px;
-        height: 3px;
-        background-color: #FFF;
-        position: fixed;
-        bottom:20px;
-        left:6px;
-        z-index: 10;
-    }
-    .menus span a{
-  background-color: white;
-  color:#777;
-  width: 300px;
-  border-radius: 5px;
-  margin:5px;
-}
-.menus span a:hover{
-  background-color: #DDD;
-}
-.menus{
-  background-color: #FFF;
-}
-.label{
-  color:#777;
-  background-color: #EFF;
-  border-right: 20px solid #0DD;
-}
-.input{
-  color:#777;
-  border-right: 10px solid #0AA;
+  // Wait until the map is ready status.
+  map.addEventListener(plugin.google.maps.event.MAP_READY, onMapReady);
+}, false);
+
+function onMapReady() {
+  var button = document.getElementById("button");
+  button.addEventListener("click", onButtonClick);
 }
 
+function onButtonClick() {
 
-</style>
-<head>
-<body>
-<div id="play_menu"></div>
-<div class="menus">
-    <span><a class="menu" href="">Accueil</a></span><span><a class="menu" href="app/upload">Uploader un fichier excel</a></span><span><a class="menu" href="app/insert_mainly">Inserer manuellement les données</a></span></div>
+  // Move to the position with animation
+  map.animateCamera({
+    target: {lat: 37.422359, lng: -122.084344},
+    zoom: 17,
+    tilt: 60,
+    bearing: 140,
+    duration: 5000
+  }, function() {
 
-<link rel="stylesheet" href="assets/map/assets/css/style.css?ver=34891875"></link>
+    // Add a maker
+    map.addMarker({
+      position: {lat: 37.422359, lng: -122.084344},
+      title: "Welecome to \n" +
+             "Cordova GoogleMaps plugin for iOS and Android",
+      snippet: "This plugin is awesome!",
+      animation: plugin.google.maps.Animation.BOUNCE
+    }, function(marker) {
 
+      // Show the info window
+      marker.showInfoWindow();
 
-<script src="assets/plugins/jQuery/jQuery-2.1.4.min.js?ver=920909050"></script>
+      // Catch the click event
+      marker.on(plugin.google.maps.event.INFO_CLICK, function() {
 
-<script src="assets/map/assets/lib/lib.js?ver=1852520556"></script>
-<script src="assets/map/assets/configs/config.js?ver=1364673441"></script>
-<script src="assets/map/assets/modules/map.js?ver=16229143"></script>
-<script src="assets/map/assets/modules/icons.js?ver=179370516"></script>
-<script src="assets/map/assets/modules/marker.js?ver=1882827810"></script>
-<script src="assets/map/assets/modules/categories.js?ver=563180481"></script>
-<script src="assets/map/assets/modules/htag.js?ver=1494388925"></script>
-<script src="assets/map/assets/modules/menu.js?ver=1268206058"></script>
-<script src="assets/map/assets/modules/info.js?ver=1346758821"></script>
-<script src="assets/map/assets/modules/delimitation.js?ver=1734089071"></script>
-<script src="assets/map/assets/jquery.min.js?ver=1527565854"></script>
-<script src="assets/map/assets/main.js?ver=1154594018"></script>
+        // To do something...
+        alert("Hello world!");
 
-<div class="iframe">
-    <div id="infodiv"></div>
-    <div id="infomenu"></div>
-    <div id="googleMap" style="width:100%;height:100%;"></div>
-
-</div>
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVSnOiY_GawHhgXZAufDXiYxnIqgtSdTQ &callback=myMap"></script>
-
-
-
-
-<script>
-(function(){
-    window.addEventListener("load",main)
-    function main(){
-        var sm=false;
-        $("#play_menu").click(function(){
-            if(sm){
-                sm=false;
-                document.querySelector(".menus").classList.remove("display");
-            }
-            else{
-                sm=true;
-                document.querySelector(".menus").classList.add("display");
-            }
-        });
-    }
-})()
+      });
+    });
+  });
+}
 </script>
-</body>
-</html>
