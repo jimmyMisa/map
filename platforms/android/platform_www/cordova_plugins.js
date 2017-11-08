@@ -13,12 +13,19 @@ module.exports = [
     "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
     "pluginId": "cordova-plugin-geolocation",
     "runs": true
+  },
+  {
+    "id": "cordova-plugin-whitelist.whitelist",
+    "file": "plugins/cordova-plugin-whitelist/whitelist.js",
+    "pluginId": "cordova-plugin-whitelist",
+    "runs": true
   }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
-  "cordova-plugin-geolocation": "2.4.3"
+  "cordova-plugin-geolocation": "2.4.3",
+  "cordova-plugin-whitelist": "1.1.0"
 };
 // BOTTOM OF METADATA
 });

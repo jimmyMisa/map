@@ -104,5 +104,13 @@
     "variables": {
       "API_KEY_FOR_ANDROID": "AIzaSyCVSnOiY_GawHhgXZAufDXiYxnIqgtSdTQ"
     }
+  },
+  "cordova-plugin-whitelist": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-whitelist@1.1.0"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }
