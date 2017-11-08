@@ -35,26 +35,17 @@ function completeInformation(data,append,i,clsm){
 			"a":"c",
 			"f":"11px",
 		});
-		addLine("&nbsp;");
-		addLine("<hr/>");
-		addLine("<b>Categorie</b> : <span class=\"htag\" data-categ=\""+get("categorie")+"\">#"+get("categorie")+"</span>",{
+		addLine("<b class=\"t_beg\">Categorie</b><span class=\"tr_beg htag\" data-categ=\""+get("categorie")+"\">#"+get("categorie")+"</span>",{
 			"f":"14px",
 		});
-		addLine("&nbsp;");
-		addLine("<hr/>");
-		addLine("<b>Sous categorie</b> : "+get("sous_categorie"),{
+		addLine("<b class=\"t_beg\">Sous categorie</b><span class=\"tr_beg\">"+get("sous_categorie")+"</span>",{
 			"f":"14px",
 		});
-		addLine("&nbsp;");
-		addLine("<br/><br/>");
-		addLine("<b>Info</b> : "+get("localisation_pratique"),{
+		addLine("<b class=\"t_beg\">Info</b><span class=\"tr_beg\">"+get("localisation_pratique")+"</span>",{
 			"f":"14px",
 		});
-		addLine("<hr/>");
-		addLine("<hr/>");
-		addLine("<hr/>");
-		addLine("<hr/>");
-		addLine("<hr/>");
+		addLine("<br/>");
+		addLine("<br/>");
 		
 		var htags=infodiv.querySelectorAll(".htag[data-categ=\""+get("categorie")+"\"]");
 		if(htags.length){
@@ -76,9 +67,10 @@ function completeInformation(data,append,i,clsm){
 		
 		function addLine(txt,options,tag){
 			if(!tag){
-				tag=div;
+				tag="div";
 			}
 			var div=document.createElement(tag);
+			div.classList.add("t_top");
 			var assoc={
 				"f":"font-size",
 				"a":"text-align",
