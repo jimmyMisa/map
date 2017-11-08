@@ -9,8 +9,20 @@ body { height: 100%; margin: 0; padding: 0 }
 #map-canvas { height: 100% }
 </style>
 <script type="text/javascript" src="cordova.js"></script>
-<script src="http://maps.google.com/maps/api/js?key=AIzaSyCVSnOiY_GawHhgXZAufDXiYxnIqgtSdTQ" type="text/javascript"></script>
+<script src="http://maps.google.com/maps/api/js?key=AIzaSyCg28jnKOrwoAohHfCY8da09LJ1QElUtGg" type="text/javascript"></script>
 <script type="text/javascript">
+
+      function reqListener () {
+        alert(oReq.responseText);
+      }
+
+      var oReq = new XMLHttpRequest();
+      oReq.addEventListener("load", reqListener);
+      oReq.open("GET", "http://sopromer.com/app/reperes_categ");
+      oReq.send();
+
+
+
 navigator.geolocation.getCurrentPosition(onSuccess, onError, { timeout: 30000 });
 function onSuccess(position) {
 var lat=position.coords.latitude;
