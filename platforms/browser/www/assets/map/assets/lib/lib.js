@@ -37,6 +37,9 @@ function events(){
 	window.addEventListener("click",function(){
 		if(globs.info){
 			cleanInformation();
+			if(globs.closeInfoWindow){
+				globs.closeInfoWindow();
+			}
 			globs.info=false;
 		}
 	});

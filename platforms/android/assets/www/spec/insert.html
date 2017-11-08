@@ -1,0 +1,307 @@
+<html>
+<head>
+<meta charset="UTF-8"></meta>
+<!-- script -->
+
+    <script type="text/javascript">
+      var BASE_URL = "http://sopromer.com/";
+    </script>
+    <!-- jQuery 2.1.4 -->
+    <script src="assets/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+
+<style>
+	body{
+		width: 100%;
+		height: 100%;
+		padding: 0;
+		margin: 0;
+	}
+	.menu{
+		display:inline-block;
+		width:200px;
+		height:50px;
+		background-color:#777;
+		padding:5px;
+		word-wrap:break-word;
+		vertical-align:middle;
+		box-sizing:border-box;
+		position:relative;
+		text-align:center;
+		color:#FFF;
+		text-decoration:none;
+		font-size:16px;
+		border:1px solid #DDD;
+	}
+	.menu *,.menu{
+		color:#FFF;
+		text-decoration:none;
+		font-size:16px;
+	}
+	.label{
+		display:inline-block;
+		width:250px;
+		height:50px;
+		background-color:#DDD;
+		margin:2px;
+		padding:5px;
+		word-wrap:break-word;
+		vertical-align:middle;
+		box-sizing:border-box;
+		position:relative;
+		text-align:center;
+	}
+	.input{
+		display:inline-block;
+		width:300px;
+		height:50px;
+		border:1px solid #DDD;
+		margin:2px;
+		padding:5px;
+		word-wrap:break-word;
+		vertical-align:middle;
+		box-sizing:border-box;
+	}
+	.input:focus{
+		background-color:#EEE;
+	}
+	.labelstack{
+		display: inline-block;
+		height: 100%;
+		vertical-align: middle;
+		width:0;
+	}
+	.labelcontent{
+		display: inline-block;
+		vertical-align: middle;
+		width: 99%;
+	}
+	.iframe{
+		width:100%;
+		height:90%;
+		display:block;
+		border: none;
+		position: relative;
+		overflow: hidden;
+	}
+	.menus{
+		position: fixed;
+		top:0px;
+		left:0px;
+		display:none;
+		z-index: 2000;
+	}
+	.menus.display{
+		display:block;
+	}
+	
+	#play_menu{
+		display: inline-block;
+		width: 30px;
+		height: 30px;
+		background-color: #333;
+		position: fixed;
+		bottom:0;
+		left:0px;
+		z-index: 10;
+		cursor:pointer;
+	}
+	#play_menu::before{
+		content:" ";
+		display: inline-block;
+		width: 18px;
+		height: 3px;
+		background-color: #FFF;
+		position: fixed;
+		bottom:10px;
+		left:6px;
+		z-index: 10;
+	}
+	#play_menu::after{
+		content:" ";
+		display: inline-block;
+		width: 18px;
+		height: 3px;
+		background-color: #FFF;
+		position: fixed;
+		bottom:20px;
+		left:6px;
+		z-index: 10;
+	}
+	.menus span a{
+  background-color: white;
+  color:#777;
+  width: 300px;
+  border-radius: 5px;
+  margin:5px;
+}
+.menus span a:hover{
+  background-color: #DDD;
+}
+.menus{
+  background-color: #FFF;
+}
+.label{
+  color:#777;
+  background-color: #EFF;
+  border-right: 20px solid #0DD;
+}
+.input{
+  color:#777;
+  border-right: 10px solid #0AA;
+}
+
+
+</style>
+<head>
+<body>
+<div id="play_menu"></div>
+<div class="menus">
+	<span><a class="menu" href="">Accueil</a></span><span><a class="menu" href="app/upload">Uploader un fichier excel</a></span><span><a class="menu" href="app/insert_mainly">Inserer manuellement les données</a></span></div>
+
+<form action="#" id="form_request">
+	<div>
+		<label for="quartier" class="label"><span class="labelstack"></span><span class="labelcontent">quartier</span></label><input id="quartier" name="quartier" class="input ninput"/> 
+	</div>
+	<div>
+		<label for="categorie" class="label"><span class="labelstack"></span><span class="labelcontent">categorie</span></label><input id="categorie" name="categorie" class="input ninput"/> 
+	</div>
+	<div>
+		<label for="sous_categorie" class="label"><span class="labelstack"></span><span class="labelcontent">sous categorie</span></label><input id="sous_categorie" name="sous_categorie" class="input ninput"/> 
+	</div>
+	<div>
+		<label for="nom_officiel" class="label"><span class="labelstack"></span><span class="labelcontent">nom officiel</span></label><input class="input ninput" id="nom_officiel" name="nom_officiel"></input>	</div>
+	<div>
+		<label for="nom_connu" class="label"><span class="labelstack"></span><span class="labelcontent">nom connu</span></label><input class="input ninput" id="nom_connu" name="nom_connu"></input>	</div>
+	<div>
+		<label for="localisation_gps" class="label"><span class="labelstack"></span><span class="labelcontent">localisation gps</span></label><input class="input ninput" id="localisation_gps" name="localisation_gps"></input>	</div>
+	<div>
+		<label for="localisation_pratique" class="label"><span class="labelstack"></span><span class="labelcontent">localisation pratique</span></label><input class="input ninput" id="localisation_pratique" name="localisation_pratique"></input>	</div>
+	<div>
+		<label for="adresse" class="label"><span class="labelstack"></span><span class="labelcontent">adresse</span></label><input class="input ninput" id="adresse" name="adresse"></input>	</div>
+	<div>
+		<label for="acces" class="label"><span class="labelstack"></span><span class="labelcontent">acces</span></label><input id="acces" name="acces" class="input ninput"/> 
+	</div>
+	<div>
+		<label for="possibilite_de_parking" class="label"><span class="labelstack"></span><span class="labelcontent">possibilite de parking</span></label><input type="checkbox" class="input" id="possibilite_de_parking" name="possibilite_de_parking"></input>	</div>
+	<div>
+		<label for="endroit_connus_tres_proche" class="label"><span class="labelstack"></span><span class="labelcontent">endroit connus tres proche</span></label><input class="input ninput" id="endroit_connus_tres_proche" name="endroit_connus_tres_proche"></input>	</div>
+	<div>
+		<label for="jours_ouverture" class="label"><span class="labelstack"></span><span class="labelcontent">jours ouverture</span></label><input class="input ninput" id="jours_ouverture" name="jours_ouverture"></input>	</div>
+	<div>
+		<label for="horaires" class="label"><span class="labelstack"></span><span class="labelcontent">horaires</span></label><input class="input ninput" id="horaires" name="horaires"></input>	</div>
+	<div>
+		<label for="surface" class="label"><span class="labelstack"></span><span class="labelcontent">surface</span></label><input class="input ninput" id="surface" name="surface"></input>	</div>
+	<div>
+		<label for="acces_net_mail_fb_site" class="label"><span class="labelstack"></span><span class="labelcontent">acces net mail fb site</span></label><input class="input ninput" id="acces_net_mail_fb_site" name="acces_net_mail_fb_site"></input>	</div>
+	<div>
+		<label for="tel_qui_marche" class="label"><span class="labelstack"></span><span class="labelcontent">tel qui marche</span></label><input class="input ninput" id="tel_qui_marche" name="tel_qui_marche"></input>	</div>
+	<div>
+		<label for="produits_plus" class="label"><span class="labelstack"></span><span class="labelcontent">produits plus</span></label><input class="input ninput" id="produits_plus" name="produits_plus"></input>	</div>
+	<div>
+		<label for="ex_prix" class="label"><span class="labelstack"></span><span class="labelcontent">ex prix</span></label><input class="input ninput" id="ex_prix" name="ex_prix"></input>	</div>
+	<div>
+		<label for="usp" class="label"><span class="labelstack"></span><span class="labelcontent">usp</span></label><input class="input ninput" id="usp" name="usp"></input>	</div>
+	<div>
+		<label for="annee_ouverture" class="label"><span class="labelstack"></span><span class="labelcontent">annee ouverture</span></label><input class="input ninput" id="annee_ouverture" name="annee_ouverture"></input>	</div>
+	<div>
+		<label for="donnees_specifiques" class="label"><span class="labelstack"></span><span class="labelcontent">donnees specifiques</span></label><input class="input ninput" id="donnees_specifiques" name="donnees_specifiques"></input>	</div>
+	<div>
+		<label for="repere" class="label"><span class="labelstack"></span><span class="labelcontent">repere</span></label><input type="checkbox" class="input" id="repere" name="repere"></input>	</div>
+	<div>
+		<input id="submiting" class="input" type="button" value="Inserer"></input>
+		<img id="status" src="assets/img/loader.gif" style="vertical-align:top;"/>
+	</div>
+</form>
+
+<script>
+(function(){
+	window.addEventListener("load",function(){
+		$("#status").hide();
+		var submiting=document.getElementById("submiting");
+		var form_request=document.getElementById("form_request");
+		
+		var ninputs=document.querySelectorAll(".ninput");
+		treatInputs()
+		function treatInputs(){
+			for(var i in ninputs){
+				treat(i);
+			}
+			function treat(i){
+				i=i-0;
+				var input=ninputs[i];
+				if(input instanceof Node){
+					input.addEventListener("keydown",function(e){
+						if(e.keyCode==38 && i-1>=0){
+							ninputs[i-1].focus();
+						}
+						if(e.keyCode==40 && i+1<ninputs.length){
+							ninputs[i+1].focus();
+						}
+					});
+				}
+			}
+		}
+		
+		submiting.addEventListener("click",function(){
+			var data={};
+			for(var i in form_request.elements){
+				var elt=form_request.elements[i];
+				if(!(elt instanceof Node)){
+					continue;
+				}
+				var type=elt.getAttribute("type")+"";
+				var name=elt.getAttribute("name")+"";
+				if(type && name && type!="button" && name.indexOf("select_")!==0){
+					if(type=="checkbox"){
+						data[name]=(elt.checked?"oui":"non");
+					}
+					else{
+						data[name]=elt.value;
+					}
+				}
+			}
+			var formData=new FormData();
+			formData.append("data",JSON.stringify(data));
+			$("#status").show();
+			$.ajax({
+				url: BASE_URL+'/app/insertvalidrepere',
+				type: 'POST',
+				data:  formData,
+				mimeType:"multipart/form-data",
+				contentType: false,
+				cache: false,
+				processData:false,
+				success: function(data, textStatus, jqXHR)
+				{
+					$("#status").hide();
+					console.log(data);
+				},
+				error: function(jqXHR, textStatus, errorThrown) 
+				{
+					$("#status").hide();
+					console.log(jqXHR);
+				}          
+			});
+		});
+	})
+})();
+</script><script>
+(function(){
+	window.addEventListener("load",main)
+	function main(){
+		var sm=false;
+		$("#play_menu").click(function(){
+			if(sm){
+				sm=false;
+				document.querySelector(".menus").classList.remove("display");
+			}
+			else{
+				sm=true;
+				document.querySelector(".menus").classList.add("display");
+			}
+		});
+	}
+})()
+</script>
+</body>
+</html>

@@ -1,5 +1,13 @@
 
 function mark(data,map,i,datas){
+	if(!globs.closeInfoWindow){
+		globs.closeInfoWindow=function(){
+			if(globs.InfoWindow){
+				globs.InfoWindow.close();
+				globs.InfoWindow=null;
+			}
+		}
+	}
 	if(globs.info===undefined){
 		globs.info=false;
 	}
@@ -39,6 +47,7 @@ function mark(data,map,i,datas){
 		  marker.addListener('click', function() {
 		  		setTimeout(function(){
 			  		globs.info=true;
+			  		globs.infowindow=infowindow;
 			  		if(window.free){
 						completeInformation(data,false,0,clsm);
 						for(var j=0;j<datas.length;j++){

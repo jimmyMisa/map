@@ -1,0 +1,274 @@
+<html>
+<head>
+<meta charset="UTF-8"></meta>
+<!-- script -->
+
+    <script type="text/javascript">
+      var BASE_URL = "http://sopromer.com/";
+    </script>
+    <!-- jQuery 2.1.4 -->
+    <script src="assets/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+
+<style>
+	body{
+		width: 100%;
+		height: 100%;
+		padding: 0;
+		margin: 0;
+	}
+	.menu{
+		display:inline-block;
+		width:200px;
+		height:50px;
+		background-color:#777;
+		padding:5px;
+		word-wrap:break-word;
+		vertical-align:middle;
+		box-sizing:border-box;
+		position:relative;
+		text-align:center;
+		color:#FFF;
+		text-decoration:none;
+		font-size:16px;
+		border:1px solid #DDD;
+	}
+	.menu *,.menu{
+		color:#FFF;
+		text-decoration:none;
+		font-size:16px;
+	}
+	.label{
+		display:inline-block;
+		width:250px;
+		height:50px;
+		background-color:#DDD;
+		margin:2px;
+		padding:5px;
+		word-wrap:break-word;
+		vertical-align:middle;
+		box-sizing:border-box;
+		position:relative;
+		text-align:center;
+	}
+	.input{
+		display:inline-block;
+		width:300px;
+		height:50px;
+		border:1px solid #DDD;
+		margin:2px;
+		padding:5px;
+		word-wrap:break-word;
+		vertical-align:middle;
+		box-sizing:border-box;
+	}
+	.input:focus{
+		background-color:#EEE;
+	}
+	.labelstack{
+		display: inline-block;
+		height: 100%;
+		vertical-align: middle;
+		width:0;
+	}
+	.labelcontent{
+		display: inline-block;
+		vertical-align: middle;
+		width: 99%;
+	}
+	.iframe{
+		width:100%;
+		height:90%;
+		display:block;
+		border: none;
+		position: relative;
+		overflow: hidden;
+	}
+	.menus{
+		position: fixed;
+		top:0px;
+		left:0px;
+		display:none;
+		z-index: 2000;
+	}
+	.menus.display{
+		display:block;
+	}
+	
+	#play_menu{
+		display: inline-block;
+		width: 30px;
+		height: 30px;
+		background-color: #333;
+		position: fixed;
+		bottom:0;
+		left:0px;
+		z-index: 10;
+		cursor:pointer;
+	}
+	#play_menu::before{
+		content:" ";
+		display: inline-block;
+		width: 18px;
+		height: 3px;
+		background-color: #FFF;
+		position: fixed;
+		bottom:10px;
+		left:6px;
+		z-index: 10;
+	}
+	#play_menu::after{
+		content:" ";
+		display: inline-block;
+		width: 18px;
+		height: 3px;
+		background-color: #FFF;
+		position: fixed;
+		bottom:20px;
+		left:6px;
+		z-index: 10;
+	}
+	.menus span a{
+  background-color: white;
+  color:#777;
+  width: 300px;
+  border-radius: 5px;
+  margin:5px;
+}
+.menus span a:hover{
+  background-color: #DDD;
+}
+.menus{
+  background-color: #FFF;
+}
+.label{
+  color:#777;
+  background-color: #EFF;
+  border-right: 20px solid #0DD;
+}
+.input{
+  color:#777;
+  border-right: 10px solid #0AA;
+}
+
+
+</style>
+<head>
+<body>
+<div id="play_menu"></div>
+<div class="menus">
+	<span><a class="menu" href="">Accueil</a></span><span><a class="menu" href="upload.html">Uploader un fichier excel</a></span><span><a class="menu" href="insert.html">Inserer manuellement les données</a></span></div>
+
+<form action="app/uploading" method="POST">
+<input class="input" type="file" id="file" name="file"/>
+<br/>
+<input class="input" type="button" id="save_button" value="Save"/>
+<br/>
+<input class="input" type="button" id="valid_button" value="Validating"/>
+<br/>
+<input class="input" type="button" id="reset_button" value="Reset All DATA /!\ (caution)"/>
+<br/>
+<img id="status" src="assets/img/loader.gif" style="vertical-align:top;"/>
+</form>
+<script>
+$(document).ready(function(){
+	$("#status").hide();
+	$("#save_button").click(save_file);
+	$("#valid_button").click(valid_file);
+	$("#reset_button").click(reset_data);
+	function valid_file(){
+		$("#status").show();
+		var formData=new FormData();
+		$.ajax({
+			url: BASE_URL+'/app/validating',
+			type: 'POST',
+			data:  formData,
+			mimeType:"multipart/form-data",
+			contentType: false,
+			cache: false,
+			processData:false,
+			success: function(data, textStatus, jqXHR)
+			{
+				$("#status").hide();
+				console.log(data);
+			},
+			error: function(jqXHR, textStatus, errorThrown) 
+			{
+				$("#status").hide();
+				console.log(jqXHR);
+			}          
+		});
+	}
+	function reset_data(){
+		var r=window.confirm("Voulez vous reelement supprimer tous les données sur la carte ?");
+		if(!r){
+			return false;
+		}
+		$("#status").show();
+		var formData=new FormData();
+		$.ajax({
+			url: BASE_URL+'/app/reset/reset123456',
+			type: 'POST',
+			data:  formData,
+			mimeType:"multipart/form-data",
+			contentType: false,
+			cache: false,
+			processData:false,
+			success: function(data, textStatus, jqXHR)
+			{
+				$("#status").hide();
+				console.log(data);
+			},
+			error: function(jqXHR, textStatus, errorThrown) 
+			{
+				$("#status").hide();
+				console.log(jqXHR);
+			}          
+		});
+	}
+	function save_file(){
+		$("#status").show();
+		var formData=new FormData();
+		formData.append("file",$("#file")[0].files[0]);
+		$.ajax({
+			url: BASE_URL+'/app/uploading',
+			type: 'POST',
+			data:  formData,
+			mimeType:"multipart/form-data",
+			contentType: false,
+			cache: false,
+			processData:false,
+			success: function(data, textStatus, jqXHR)
+			{
+				$("#status").hide();
+				console.log(data);
+			},
+			error: function(jqXHR, textStatus, errorThrown) 
+			{
+				$("#status").hide();
+				console.log(jqXHR);
+			}          
+		});
+	}
+	
+});
+</script>
+<script>
+(function(){
+	window.addEventListener("load",main)
+	function main(){
+		var sm=false;
+		$("#play_menu").click(function(){
+			if(sm){
+				sm=false;
+				document.querySelector(".menus").classList.remove("display");
+			}
+			else{
+				sm=true;
+				document.querySelector(".menus").classList.add("display");
+			}
+		});
+	}
+})()
+</script>
+</body>
+</html>

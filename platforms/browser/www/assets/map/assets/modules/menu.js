@@ -45,6 +45,7 @@ function addMenu(categorie){
 	function unselect(p){
 		incat=false;
 		removeCategSearch(categorie);
+		alert(JSON.stringify(globs.categs))
 		container.classList.remove("categ_use");
 		if(!p){
 			selectCategorie();
